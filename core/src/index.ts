@@ -1,3 +1,5 @@
-import { errorHandler } from "./middlewares/errorHandler";
+import logger from "./logger";
+import { errorHandler, requestLogHandler } from "./middlewares";
 
-export { errorHandler };
+export { logger };
+export { errorHandler, requestLogHandler };
