@@ -1,5 +1,6 @@
 import express, { json } from "express";
 import { errorHandler, logger, requestLogHandler } from "core";
+import { loginRouter } from "./src/routes";
 const app = express();
 app.use(requestLogHandler);
 app.get("/", json(), (_request, response) => {
@@ -7,6 +8,8 @@ app.get("/", json(), (_request, response) => {
 		live: true,
 	});
 });
+
+app.use("/login", loginRouter);
 
 app.all("*", (_request, _result) => {
 	throw new Error("Route not found");
