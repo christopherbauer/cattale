@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "user",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "tsc: start user",
+			"detail": "tsc"
+		}
+	]
+}
