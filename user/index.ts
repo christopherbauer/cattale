@@ -19,7 +19,7 @@ app.use(errorHandler);
 const start = () => {
 	const port = Number(process.env.PORT || 3000);
 	app.listen(port, () => {
-		logger.info(`Server running on port ${port}`);
+		logger.info(`⚡ Server running on port ${port}`);
 	});
 };
 

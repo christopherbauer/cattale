@@ -8,10 +8,12 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Launch User Service",
+			"sourceMaps": true,
+			"smartStep": true,
 			"skipFiles": ["<node_internals>/**"],
 			"program": "${workspaceFolder}/user/index.ts",
-			"preLaunchTask": "tsc: start user",
-			"outFiles": ["${workspaceFolder}/user/dist"]
+			"preLaunchTask": "tsc: build - user/tsconfig.json",
+			"outFiles": ["${workspaceFolder}/user/dist/*.js"]
 		}
 	]
 }
