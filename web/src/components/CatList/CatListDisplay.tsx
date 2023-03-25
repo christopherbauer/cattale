@@ -26,7 +26,7 @@ export const CatListDisplay = ({ cats }: CatListProps) => {
 			cats.map((c) => {
 				const { name, description, imageUri, tags } = c;
 				return (
-					<AccordionItem>
+					<AccordionItem key={name}>
 						<AccordionButton>
 							<AccordionIcon />
 							<Box as="span" flex="1" textAlign={"left"}>
@@ -40,7 +40,7 @@ export const CatListDisplay = ({ cats }: CatListProps) => {
 							</HStack>
 							<Divider />
 							{tags.map((t) => (
-								<Badge fontSize={"xl"} color={"green"} mr={1}>
+								<Badge key={t} fontSize={"xl"} color={"green"} mr={1}>
 									{t}
 								</Badge>
 							))}

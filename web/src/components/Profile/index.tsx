@@ -1,64 +1,46 @@
 import { useAuth0, User } from "@auth0/auth0-react";
-import { Box, Center, HStack, Progress, VStack } from "@chakra-ui/react";
+import { Box, Center, HStack, Progress, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useUserStore } from "../../stores/userStore";
 import { LogoutButton } from "../Logout";
+import { getUserMetadata } from "./model";
+import { ProfileDisplay } from "./ProfileDisplay";
 
 const domain = String(process.env.REACT_APP_AUTH0_DOMAIN);
+
 export const Profile = () => {
-	const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0();
-	const [userMetadata, setUserMetadata] = useState<User | null>(null);
+	const { user, isAuthenticated, isLoading } = useAuth0();
+	const { accessToken } = useUserStore();
+	const [userMetadata, setUserMetadata] = useState<User | undefined>(undefined);
 	useEffect(() => {
-		const getUserMetadata = async () => {
-			try {
-				const accessToken = await getAccessTokenSilently({
-					authorizationParams: {
-						audience: `https://${domain}/api/v2/`,
-						scope: "read:current_user",
-					},
-				});
-
-				const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user?.sub}`;
-				console.log(userDetailsByIdUrl);
-
-				const metadataResponse = await fetch(userDetailsByIdUrl, {
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-					},
-				});
-				console.log(metadataResponse);
-				const { user_metadata } = await metadataResponse.json();
-				console.log(user_metadata);
-
-				setUserMetadata(user_metadata);
-			} catch (e) {
-				console.log(e);
-			}
-		};
-		if (!isLoading && isAuthenticated) {
-			getUserMetadata();
+		if (!isLoading && isAuthenticated && user && user.sub) {
+			getUserMetadata(domain, user.sub).then((userMetadata) => {
+				if (userMetadata) {
+					setUserMetadata(userMetadata);
+				} else {
+					setUserMetadata(undefined);
+				}
+			});
 		}
-	}, [getAccessTokenSilently, isAuthenticated, isLoading, user, user?.sub]);
+	}, [accessToken, isAuthenticated, isLoading, user, user?.sub]);
 	if (isLoading || !(isAuthenticated && user && userMetadata)) {
 		return (
 			<Box bg="white" p={4} mb={4} border={2} shadow={"lg"} padding={2}>
-				<Center>
+				<Progress size="xs" isIndeterminate />
+				<HStack mt={4}>
+					<SkeletonCircle />
+					<SkeletonText mt={4} noOfLines={4} spacing={2} skeletonHeight={2} flex={1} />
+				</HStack>
+
+				<Center mt={4}>
 					<LogoutButton />
 				</Center>
-				<Progress size="xs" isIndeterminate />
 			</Box>
 		);
 	}
-	console.log(userMetadata);
 	return (
-		<HStack>
-			<img src={userMetadata.picture} alt={userMetadata.name} />
-			<VStack>
-				<h2>{userMetadata.name}</h2>
-				<p>{userMetadata.email}</p>
-				<h3>User Metadata</h3>
-				{userMetadata ? <pre>{JSON.stringify(userMetadata, null, 2)}</pre> : "No user metadata defined"}
-			</VStack>
-			<LogoutButton />
-		</HStack>
+		<Box bg="white" p={4} mb={4} border={2} shadow={"lg"} padding={2}>
+			<ProfileDisplay user={userMetadata} />
+		</Box>
 	);
 };
