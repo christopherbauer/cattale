@@ -23,6 +23,9 @@ export const makeRequest: <T>(
 		});
 };
 export const Wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
+export const Urls = {
+	Home: "/",
+	Dashboard: "/dashboard",
+};
 export { IdleRequest };
 export type { DataRequest };
