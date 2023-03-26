@@ -1,8 +1,11 @@
 import { User } from "@auth0/auth0-react";
+import { integratedFetch } from "@cattale/core";
 import { Api } from "../../lib";
 import { useUserStore } from "../../stores/userStore";
 export const checkIfRegisteredUser = (userId: string) => {
-	// integratedFetch.json("", {});
+	return integratedFetch.json(Api.User.Login, {
+		method: "POST",
+	});
 };
 export const getUserMetadata = async (userId: string) => {
 	const { accessToken } = useUserStore.getState();

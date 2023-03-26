@@ -1,5 +1,5 @@
 {
-	"name": "core",
+	"name": "@cattale/core",
 	"version": "1.0.0",
 	"description": "Core library code that is shared between services",
 	"main": "dist/index.js",
