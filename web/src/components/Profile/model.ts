@@ -1,12 +1,13 @@
 import { User } from "@auth0/auth0-react";
+import { Api } from "../../lib";
 import { useUserStore } from "../../stores/userStore";
-
-export const getUserMetadata = async (domain: string, userId: string) => {
+export const checkIfRegisteredUser = (userId: string) => {
+	// integratedFetch.json("", {});
+};
+export const getUserMetadata = async (userId: string) => {
 	const { accessToken } = useUserStore.getState();
 	try {
-		const userDetailsByIdUrl = `https://${domain}/api/v2/users/${userId}`;
-
-		return await fetch(userDetailsByIdUrl, {
+		return await fetch(Api.Auth0.UserDetails(userId), {
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 			},

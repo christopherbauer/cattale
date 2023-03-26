@@ -1,9 +1,8 @@
 import { Container } from "@chakra-ui/react";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import { CatList } from "./components/CatList";
 import { Login } from "./components/Login";
-import { Profile } from "./components/Profile";
 import { Urls } from "./lib";
+import { Dashboard } from "./pages/Dashboard";
 import { AuthenticatedRoute } from "./routes";
 const Layout = () => {
 	return (
@@ -19,15 +18,7 @@ function App() {
 				<Route path={Urls.Home} element={<Layout />}>
 					<Route index element={<Login />} />
 					<Route path={Urls.Dashboard} element={<AuthenticatedRoute />}>
-						<Route
-							index
-							element={
-								<Container>
-									<Profile />
-									<CatList />
-								</Container>
-							}
-						/>
+						<Route index element={<Dashboard />} />
 					</Route>
 				</Route>
 			</Routes>

@@ -4,7 +4,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { Urls } from "./lib";
+import { Api, CONSTANTS, Urls } from "./lib";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 const theme = extendTheme({
@@ -12,16 +12,15 @@ const theme = extendTheme({
 		cssVarPrefix: "ck",
 	},
 });
-const domain = String(process.env.REACT_APP_AUTH0_DOMAIN),
-	clientId = String(process.env.REACT_APP_AUTH0_CLIENT_ID);
+console.log(CONSTANTS);
 root.render(
 	<React.StrictMode>
 		<Auth0Provider
-			domain={domain}
-			clientId={clientId}
+			domain={CONSTANTS.AUTH0_DOMAIN}
+			clientId={CONSTANTS.AUTH0_CLIENT_ID}
 			authorizationParams={{
 				redirect_uri: `${window.location.origin}${Urls.Dashboard}`,
-				audience: `https://${domain}/api/v2/`,
+				audience: Api.Auth0.Audience,
 				scope: "read:current_user write:current_user",
 			}}
 		>

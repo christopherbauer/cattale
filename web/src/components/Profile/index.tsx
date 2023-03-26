@@ -3,10 +3,8 @@ import { Box, Center, HStack, Progress, SkeletonCircle, SkeletonText } from "@ch
 import { useEffect, useState } from "react";
 import { useUserStore } from "../../stores/userStore";
 import { LogoutButton } from "../Logout";
-import { getUserMetadata } from "./model";
+import { checkIfRegisteredUser, getUserMetadata } from "./model";
 import { ProfileDisplay } from "./ProfileDisplay";
-
-const domain = String(process.env.REACT_APP_AUTH0_DOMAIN);
 
 export const Profile = () => {
 	const { user, isAuthenticated, isLoading } = useAuth0();
@@ -14,7 +12,8 @@ export const Profile = () => {
 	const [userMetadata, setUserMetadata] = useState<User | undefined>(undefined);
 	useEffect(() => {
 		if (!isLoading && isAuthenticated && user && user.sub) {
-			getUserMetadata(domain, user.sub).then((userMetadata) => {
+			checkIfRegisteredUser(user.sub);
+			getUserMetadata(user.sub).then((userMetadata) => {
 				if (userMetadata) {
 					setUserMetadata(userMetadata);
 				} else {

@@ -2,10 +2,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Box, Text, Progress } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { Urls } from "../lib";
+import { Api, Urls } from "../lib";
 import { useUserStore } from "../stores/userStore";
 
-const domain = String(process.env.REACT_APP_AUTH0_DOMAIN);
 export const AuthenticatedRoute = () => {
 	const { isAuthenticated, isLoading, user, getAccessTokenSilently } = useAuth0();
 	const { accessToken, setAccessToken } = useUserStore();
@@ -14,7 +13,7 @@ export const AuthenticatedRoute = () => {
 			try {
 				const accessToken = await getAccessTokenSilently({
 					authorizationParams: {
-						audience: `https://${domain}/api/v2/`,
+						audience: Api.Auth0.Audience,
 						scope: "read:current_user",
 					},
 				});

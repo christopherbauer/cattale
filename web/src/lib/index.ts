@@ -27,5 +27,18 @@ export const Urls = {
 	Home: "/",
 	Dashboard: "/dashboard",
 };
+export const CONSTANTS = {
+	AUTH0_DOMAIN: String(process.env.REACT_APP_AUTH0_DOMAIN),
+	AUTH0_CLIENT_ID: String(process.env.REACT_APP_AUTH0_CLIENT_ID),
+};
+export const Api = {
+	Auth0: {
+		Audience: `https://${CONSTANTS.AUTH0_DOMAIN}/api/v2/`,
+		UserDetails: (userId: string) => `https://${CONSTANTS.AUTH0_DOMAIN}/api/v2/users/${userId}`,
+	},
+	User: {
+		Login: `https://localhost:3000/account/login`,
+	},
+};
 export { IdleRequest };
 export type { DataRequest };

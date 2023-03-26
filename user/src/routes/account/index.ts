@@ -4,10 +4,10 @@ const checkJwt = auth({
 	audience: "{yourApiIdentifier}",
 	issuerBaseURL: `https://{yourDomain}/`,
 });
-const loginRouter = express.Router();
+const accountRouter = express.Router();
 const scopes = requiredScopes(["read:account", "write:account"]);
-loginRouter
-	.route("/account")
+accountRouter
+	.route("/login")
 	.all(checkJwt, scopes)
 	.get((request, response) => {
 		const { auth } = request;
@@ -25,4 +25,4 @@ loginRouter
 		response.status(200).send();
 	});
 
-export default loginRouter;
+export default accountRouter;
