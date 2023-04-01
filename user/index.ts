@@ -1,5 +1,5 @@
 import express, { json } from "express";
-import { errorHandler, logger, requestLogHandler } from "core";
+import { errorHandler, logger, requestLogHandler } from "@cattale/server";
 import { accountRouter } from "./src/routes";
 const app = express();
 app.use(requestLogHandler);

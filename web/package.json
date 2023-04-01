@@ -4,11 +4,11 @@
 	"private": true,
 	"dependencies": {
 		"@auth0/auth0-react": "2.0.1",
-		"@cattale/core": "file:../@cattale/core",
+		"@cattale/web": "file:../core/web",
 		"@chakra-ui/icons": "2.0.17",
 		"@chakra-ui/react": "2.5.2",
 		"@emotion/react": "11.10.6",
-		"@emotion/styled": "11.10.6",
+		"@emotion/styled": "1x1.10.6",
 		"@testing-library/jest-dom": "5.16.5",
 		"@testing-library/react": "13.4.0",
 		"@testing-library/user-event": "13.5.0",
@@ -28,6 +28,7 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
+		"build:fresh": "npm uninstall @cattale/web && npm i ../core/web",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},

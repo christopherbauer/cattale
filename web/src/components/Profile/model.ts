@@ -1,5 +1,5 @@
 import { User } from "@auth0/auth0-react";
-import { integratedFetch } from "@cattale/core";
+import { integratedFetch } from "@cattale/web";
 import { Api } from "../../lib";
 import { useUserStore } from "../../stores/userStore";
 export const checkIfRegisteredUser = (userId: string) => {
